@@ -72,3 +72,37 @@ $('.permbutton').click( function( e ) {
 
 // ---- Assign unique ids to everything that doesn't have an ID ----
 $('#html-loc').find('*').uniqueId() 
+
+// defining popup for warning for altering permissions
+const childPermWarningDialog = define_new_dialog('child_perm_warning', 'Warning', {
+    buttons: {
+        Cancel: {
+            text: "Cancel",
+            click: function() {
+                $(this).dialog("close");
+                $('#adv_perm_replace_child_permissions').prop('checked', false);
+            }
+        },
+        Continue: {
+            text: "Continue",
+            click: function() {
+                $(this).dialog("close");
+                console.log("User confirmed child permission overwrite.");
+            }
+        }
+    }
+});
+
+// creating the popup
+childPermWarningDialog.append(`
+    <p style="color:red; font-weight:bold;">
+        Warning: Changing these permissions will affect all child objects.
+    </p>
+`);
+
+// triggering popup
+$('#adv_perm_replace_child_permissions').change(function() {
+    if ($(this).is(':checked')) {
+        childPermWarningDialog.dialog('open');
+    }
+});
