@@ -75,7 +75,7 @@ file_permission_users.css({
 })
 
 // Make button to add a new user to the list:
-perm_add_user_select = define_new_user_select_field('perm_add_user', 'Apply Inheritance after Advanced Changes', on_user_change = function(selected_user){
+perm_add_user_select = define_new_user_select_field('perm_add_user', 'Add User', on_user_change = function(selected_user){
     // console.log("add...")
     let filepath = perm_dialog.attr('filepath')
     if(selected_user && (selected_user.length > 0) && (selected_user in all_users)) { // sanity check that a user is actually selected (and exists)
@@ -147,7 +147,7 @@ let are_you_sure_dialog = define_new_dialog('are_you_sure_dialog', "Are you sure
 are_you_sure_dialog.text('Do you want to remove permissions for this user?')
 
 // Make actual "remove" button:
-perm_remove_user_button  = $('<button id="perm_remove_user" class="ui-button ui-widget ui-corner-all">Remove All Permissions</button>')
+perm_remove_user_button  = $('<button id="perm_remove_user" class="ui-button ui-widget ui-corner-all">Remove User Permissions</button>')
 perm_remove_user_button.click(function(){
     // Get the current user and filename we are working with:
     let selected_username = file_permission_users.attr('selected_item')
@@ -175,10 +175,10 @@ perm_remove_user_button.click(function(){
 perm_dialog.append(obj_name_div)
 perm_dialog.append($('<div id="permissions_user_title">Group or user names:</div>'))
 perm_dialog.append(file_permission_users)
-perm_dialog.append(grouped_permissions)
-perm_dialog.append(advanced_expl_div)
 perm_dialog.append(perm_add_user_select)
 perm_add_user_select.append(perm_remove_user_button) // Cheating a bit again - add the remove button the the 'add user select' div, just so it shows up on the same line.
+perm_dialog.append(grouped_permissions)
+perm_dialog.append(advanced_expl_div)
 
 
 // --- Additional logic for reloading contents when needed: ---
@@ -382,10 +382,10 @@ $('#adv_perm_inheritance').change(function(){
     else {
         // has just been turned off - pop up dialog with add/remove/cancel
         $(`<div id="add_remove_cancel" title="Security">
-            Warning: if you proceed, inheritable permissions will no longer propagate to this object.<br/>
-            - Click Add to convert and add inherited parent permissions as explicit permissions on this object<br/>
-            - Click Remove to remove inherited parent permissions from this object<br/>
-            - Click Cancel if you do not want to modify inheritance settings at this time.<br/>
+            Warning: Making changes to inheritance will affect which users can access this object.<br/>
+            - Add: Make inherited permissions explicit so you can modify them (e.g., remove users)<br/>
+            - Remove: Stop inheriting and clear all permissions, you’ll need to re-add users manually.<br/>
+            - Cancel: Keep current inheritance, no changes at this time.<br/>
         </div>`).dialog({ // TODO: don't create this dialog on the fly
             modal: true,
             width: 400,
