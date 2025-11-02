@@ -4,6 +4,33 @@ show_starter_dialogs = false // set this to "false" to disable the survey and 3-
 // ---- Set up main Permissions dialog ----
 
 // --- Create all the elements, and connect them as needed: ---
+
+// Define subheadings that should appear above certain permissions
+const displayGroups = {
+    'Read Permissions': [
+        permissions.LIST,
+        permissions.READ_ATTR,
+        permissions.READ_EXTENDED_ATTR,
+        permissions.READ_PERMS,
+        permissions.EXECUTE, // "Traverse folder/execute file"
+    ],
+    'Write Permissions': [
+        permissions.WRITE_DATA,      // "Create files/write data"
+        permissions.APPEND_DATA,     // "Create folders/append data"
+        permissions.WRITE_ATTR,      // "Write attributes"
+        permissions.WRITE_EXTENDED_ATTR, // "Write extended attributes"
+    ],
+    'Delete Permissions': [
+        permissions.DELETE_SUB,      // "Delete subfolders and files"
+        permissions.DELETE           // "Delete"
+    ],
+    'Special Permissions': [
+        permissions.CHANGE_PERMS,    // "Change permissions"
+        permissions.TAKE_OWNERSHIP   // "Take ownership"
+    ]
+};
+
+
 // Make permissions dialog:
 perm_dialog = define_new_dialog('permdialog', title='Permissions', options = {
     // The following are standard jquery-ui options. See https://jqueryui.com/dialog/
@@ -522,15 +549,40 @@ let perm_entry_dialog = $('#permentry').dialog({
     }
 })
 
-for(let p of Object.values(permissions)){
-    let row = $(`<tr id="perm_entry_row_${p}">
-        <td id="perm_entry_row_${p}_cell">${p}</td>
-    </tr>`)
-    for(let ace_type of ['allow', 'deny']) {
-        row.append(`<td id="perm_entry_row_${p}_${ace_type}" class="perm_entry_checkcell" perm="${p}" type="${ace_type}"></td>`)
+
+//MADE CHANGES TO BELOW CODE TO MAKE HEADERS APPEAR WITH PERMISSIONS REORGANIZED INTO GROUPS
+for (const [groupName, permList] of Object.entries(displayGroups)) {
+    // Header row
+    const groupHeader = $(`
+        <tr class="perm-group-header">
+            <td colspan="3" style="font-weight:bold; background:#f0f0f0; padding:4px 8px;">
+                ${groupName}
+            </td>
+        </tr>
+    `);
+    $('#perm_entry_table').append(groupHeader);
+
+    // Permission rows
+    for (let p of permList) {
+        const row = $(`
+            <tr id="perm_entry_row_${p}">
+                <td id="perm_entry_row_${p}_cell">${p}</td>
+            </tr>
+        `);
+        for (let ace_type of ['allow', 'deny']) {
+            row.append(`
+                <td id="perm_entry_row_${p}_${ace_type}" 
+                    class="perm_entry_checkcell" 
+                    perm="${p}" 
+                    type="${ace_type}">
+                </td>
+            `);
+        }
+        $('#perm_entry_table').append(row);
     }
-    $('#perm_entry_table').append(row)
-}  
+}
+
+
 
 $('#adv_perm_edit').click(function(){
     let filepath = $('#advdialog').attr('filepath')
