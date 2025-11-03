@@ -521,3 +521,51 @@ $('#filestructure').css({
     'vertical-align': 'top'
 })
 $('#filestructure').after('<div id="sidepanel" style="display:inline-block;width:49%"></div>')
+
+// defining dialog box for warning after editing stuff
+const childPermConfirmDialog = define_new_dialog('child_perm_warning_dialog', 'Confirm: Replace Child Permissions', {
+  modal: true,
+  width: 460,
+  buttons: {
+    Cancel: {
+      text: 'Cancel',
+      click: function () {
+        $(this).dialog('close');
+        // leave the checkbox unchecked
+      }
+    },
+    Continue: {
+      text: 'Continue',
+      click: function () {
+        $(this).dialog('close');
+        // re-check the box and let normal handlers proceed
+        _childPermRecheck = true;
+        $('#adv_perm_replace_child_permissions').prop('checked', true).trigger('change');
+        _childPermRecheck = false;
+      }
+    }
+  }
+});
+
+// add concise warning text
+childPermConfirmDialog.append(`
+  <p style="margin:0.5rem 0;">
+    <strong>Warning:</strong> This action will <em>replace all child object permissions</em>
+    with inheritable permissions from this object. This change cascades to all subfolders and files.
+  </p>
+`);
+
+// to avoid errors when rechecked
+$('#adv_perm_replace_child_permissions').on('change', function () {
+  const isChecked = $(this).is(':checked');
+
+  // ignore our own programmatic re-check
+  if (_childPermRecheck) return;
+
+  if (isChecked) {
+    // temporarily undo the check and ask for confirmation
+    $(this).prop('checked', false);
+    childPermConfirmDialog.dialog('open');
+  }
+  // if user is unchecking just let it happen with no dialog
+});
