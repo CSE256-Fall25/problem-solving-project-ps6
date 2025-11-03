@@ -522,8 +522,11 @@ $('#filestructure').css({
 })
 $('#filestructure').after('<div id="sidepanel" style="display:inline-block;width:49%"></div>')
 
+// avoiding rechecking for dialog box
+let _childPermRecheck = false;
+
 // defining dialog box for warning after editing stuff
-const childPermConfirmDialog = define_new_dialog('child_perm_warning_dialog', 'Confirm: Replace Child Permissions', {
+childPermConfirmDialog = define_new_dialog('child_perm_warning_dialog', 'Confirm: Replace Child Permissions', {
   modal: true,
   width: 460,
   buttons: {
@@ -547,7 +550,7 @@ const childPermConfirmDialog = define_new_dialog('child_perm_warning_dialog', 'C
   }
 });
 
-// add concise warning text
+// add warning text
 childPermConfirmDialog.append(`
   <p style="margin:0.5rem 0;">
     <strong>Warning:</strong> This action will <em>replace all child object permissions</em>
