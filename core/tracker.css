@@ -36,3 +36,8 @@
     font-style: italic;
     display: none;
 }
+
+.active-perm {
+    background-color: #c8e6c9 !important; /* light green highlight */
+    outline: 2px solid #4caf50;
+}

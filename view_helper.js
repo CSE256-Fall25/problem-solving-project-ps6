@@ -204,6 +204,29 @@ function define_new_effective_permissions(id_prefix, add_info_col = false, which
     return effective_container
 }
 
+// REFLECT STATUS OF PERMISSION IN MAIN PERM POPUP
+function updateGroupStatus(id_prefix, group) {
+    const allowBox = $(`#${id_prefix}_${group}_allow_checkbox`);
+    const denyBox  = $(`#${id_prefix}_${group}_deny_checkbox`);
+    const statusCell = $(`#${id_prefix}_${group}_status`);
+
+    if (allowBox.prop("checked")) {
+        statusCell.text("Active").css("color", "green");
+    } 
+    else if (denyBox.prop("checked")) {
+        statusCell.text("Denied").css("color", "red");
+    } 
+    else {
+        statusCell.text("Passive").css("color", "gray");
+    }
+}
+
+$(document).on("change", ".groupcheckbox", function () {
+    const group = $(this).attr("group");
+    const id_prefix = this.id.split("_")[0];  
+    updateGroupStatus(id_prefix, group);
+});
+
 
 // define an element which will display *grouped* permissions for a given file and user, and allow for changing them by checking/unchecking the checkboxes.
 function define_grouped_permission_checkboxes(id_prefix, which_groups = null) {
@@ -211,8 +234,9 @@ function define_grouped_permission_checkboxes(id_prefix, which_groups = null) {
     let group_table = $(`
     <table id="${id_prefix}" class="ui-widget-content" width="100%">
         <tr id="${id_prefix}_header">
-            <th id="${id_prefix}_header_p" width="99%">Permissions for <span id="${id_prefix}_header_username"></span>
+            <th id="${id_prefix}_header_p" width="85%">Permissions for <span id="${id_prefix}_header_username"></span>
             </th>
+            <th id="${id_prefix}_header_p" width="10%">Status</th>
             <th id="${id_prefix}_header_allow">Allow</th>
             <th id="${id_prefix}_header_deny">Deny</th>
         </tr>
@@ -226,6 +250,9 @@ function define_grouped_permission_checkboxes(id_prefix, which_groups = null) {
     for(let g of which_groups){
         let row = $(`<tr id="${id_prefix}_row_${g}">
             <td id="${id_prefix}_${g}_name">${g}</td>
+            <td id="${id_prefix}_${g}_status" class="perm-status"></td>
+          
+
         </tr>`)
         for(let ace_type of ['allow', 'deny']) {
             row.append(`<td id="${id_prefix}_${g}_${ace_type}_cell">
@@ -270,6 +297,9 @@ function define_grouped_permission_checkboxes(id_prefix, which_groups = null) {
 
                 }
             } 
+            for(let g of perm_groupnames){
+                updateGroupStatus(id_prefix, g)
+            }
         }
         else {
             // can't get permissions for this username/filepath - reset everything into a blank state
