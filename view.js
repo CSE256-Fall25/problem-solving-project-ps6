@@ -44,8 +44,19 @@ for(let root_file of root_files) {
     $( "#filestructure" ).append( file_elem);    
 }
 
-
-
+ $("#filestructure").prepend(`
+        <div id="ta-reminder-note" style="
+            margin-bottom: 10px; 
+            padding: 8px; 
+            background-color: #fff3cd; 
+            border: 1px solid #ffeeba; 
+            border-radius: 4px; 
+            color: #856404; 
+            font-size: 14px;
+        ">
+            Note: To change inherited permissions, first modify permissions permissions.
+        </div>
+    `);
 // make folder hierarchy into an accordion structure
 $('.folder').accordion({
     collapsible: true,
@@ -56,17 +67,20 @@ $('.folder').accordion({
 // -- Connect File Structure lock buttons to the permission dialog --
 
 // open permissions dialog when a permission button is clicked
-$('.permbutton').click( function( e ) {
+$('.permbutton').click(function(e) {
     // Set the path and open dialog:
     let path = e.currentTarget.getAttribute('path');
     perm_dialog.attr('filepath', path)
     perm_dialog.dialog('open')
-    //open_permissions_dialog(path)
 
+    // ---- Insert TA reminder note in Effective Permissions tab ----
+    
+    
     // Deal with the fact that folders try to collapse/expand when you click on their permissions button:
-    e.stopPropagation() // don't propagate button click to element underneath it (e.g. folder accordion)
-    // Emit a click for logging purposes:
-    emitter.dispatchEvent(new CustomEvent('userEvent', { detail: new ClickEntry(ActionEnum.CLICK, (e.clientX + window.pageXOffset), (e.clientY + window.pageYOffset), e.target.id,new Date().getTime()) }))
+    e.stopPropagation();
+    emitter.dispatchEvent(new CustomEvent('userEvent', { 
+        detail: new ClickEntry(ActionEnum.CLICK, (e.clientX + window.pageXOffset), (e.clientY + window.pageYOffset), e.target.id, new Date().getTime()) 
+    }));
 });
 
 
