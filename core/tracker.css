@@ -28,3 +28,11 @@
 .top-banner-button:hover {
     background-color: rgb(255, 97, 40);
 }
+
+#userInheritanceRemovedText{
+    color: rgb(18, 124, 29);
+    font-weight: bold;
+    margin-top: 10px;
+    font-style: italic;
+    display: none;
+}

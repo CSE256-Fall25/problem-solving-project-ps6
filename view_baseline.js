@@ -147,7 +147,7 @@ let are_you_sure_dialog = define_new_dialog('are_you_sure_dialog', "Are you sure
 are_you_sure_dialog.text('Do you want to remove permissions for this user?')
 
 // Make actual "remove" button:
-perm_remove_user_button  = $('<button id="perm_remove_user" class="ui-button ui-widget ui-corner-all">Remove User Permissions</button>')
+perm_remove_user_button  = $('<button id="perm_remove_user" class="ui-button ui-widget ui-corner-all">Remove User</button>')
 perm_remove_user_button.click(function(){
     // Get the current user and filename we are working with:
     let selected_username = file_permission_users.attr('selected_item')
@@ -383,7 +383,7 @@ $('#adv_perm_inheritance').change(function(){
         // has just been turned off - pop up dialog with add/remove/cancel
         $(`<div id="add_remove_cancel" title="Security">
             Warning: Making changes to inheritance will affect which users can access this object.<br/>
-            - Add: Make inherited permissions explicit so you can modify them (e.g., remove users)<br/>
+            - Add: Make inherited permissions explicit so you can modify them (e.g., <strong>remove users</strong>)<br/>
             - Remove: Stop inheriting and clear all permissions, you’ll need to re-add users manually.<br/>
             - Cancel: Keep current inheritance, no changes at this time.<br/>
         </div>`).dialog({ // TODO: don't create this dialog on the fly
@@ -402,6 +402,8 @@ $('#adv_perm_inheritance').change(function(){
                         open_advanced_dialog(filepath) // reload/reopen 'advanced' dialog
                         perm_dialog.attr('filepath', filepath) // force reload 'permissions' dialog
                         $( this ).dialog( "close" );
+                        userInheritanceRemovedText.style.display = 'block'; 
+
                     },
                 },
                 Remove: {
