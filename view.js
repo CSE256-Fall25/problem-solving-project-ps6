@@ -54,7 +54,7 @@ for(let root_file of root_files) {
             color: #856404; 
             font-size: 14px;
         ">
-            Note: To change inherited permissions, first modify permissions permissions.
+            Note: To change inherited permissions, first modify parent permissions.
         </div>
     `);
 // make folder hierarchy into an accordion structure

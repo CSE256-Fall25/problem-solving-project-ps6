@@ -583,8 +583,7 @@ childPermConfirmDialog = define_new_dialog('child_perm_warning_dialog', 'Confirm
 // add warning text
 childPermConfirmDialog.append(`
   <p style="margin:0.5rem 0;">
-    <strong>Warning:</strong> This action will <em>replace all child object permissions</em>
-    with inheritable permissions from this object. This change cascades to all subfolders and files.
+    <strong>Warning:</strong> Doing this will overwrite all permissions on subfolders and files
   </p>
 `);
 
