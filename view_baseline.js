@@ -383,8 +383,8 @@ $('#adv_perm_inheritance').change(function(){
         // has just been turned off - pop up dialog with add/remove/cancel
         $(`<div id="add_remove_cancel" title="Security">
             Warning: Making changes to inheritance will affect which users can access this object.<br/>
-            - Add: Make inherited permissions explicit so you can modify them (e.g., <strong>remove users</strong>)<br/>
-            - Remove: Stop inheriting and clear all permissions, you’ll need to re-add users manually.<br/>
+            - Add: Proceed with removing inheritability permissions from this user (e.g., <strong>remove users</strong>)<br/>
+            - Remove: Stop inheriting and clear all permissions from all users, you’ll need to re-add users manually.<br/>
             - Cancel: Keep current inheritance, no changes at this time.<br/>
         </div>`).dialog({ // TODO: don't create this dialog on the fly
             modal: true,

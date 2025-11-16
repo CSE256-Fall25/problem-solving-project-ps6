@@ -36,3 +36,11 @@
 .no-close .ui-dialog-titlebar-close {
     display: none;
 }
+
+#perm_remove_user {
+    background-color: rgba(249, 50, 50, 0.238);
+}
+
+#perm_add_user_button {
+    background-color: rgba(99, 159, 248, 0.306);
+}
