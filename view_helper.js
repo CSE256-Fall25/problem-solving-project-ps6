@@ -209,12 +209,12 @@ function updateGroupStatus(id_prefix, group) {
     const allowBox = $(`#${id_prefix}_${group}_allow_checkbox`);
     const denyBox  = $(`#${id_prefix}_${group}_deny_checkbox`);
     const statusCell = $(`#${id_prefix}_${group}_status`);
-
-    if (allowBox.prop("checked")) {
-        statusCell.text("Active").css("color", "green");
-    } 
-    else if (denyBox.prop("checked")) {
+    
+    if (denyBox.prop("checked")) {
         statusCell.text("Denied").css("color", "red");
+    } 
+    else if (allowBox.prop("checked")) {
+        statusCell.text("Active").css("color", "green");
     } 
     else {
         statusCell.text("Passive").css("color", "gray");
