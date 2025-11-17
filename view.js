@@ -45,19 +45,7 @@ for(let root_file of root_files) {
     $( "#filestructure" ).append( file_elem);    
 }
 
- $("#filestructure").prepend(`
-        <div id="ta-reminder-note" style="
-            margin-bottom: 10px; 
-            padding: 8px; 
-            background-color: #fff3cd; 
-            border: 1px solid #ffeeba; 
-            border-radius: 4px; 
-            color: #856404; 
-            font-size: 14px;
-        ">
-            Note: To change inherited permissions, first modify parent permissions.
-        </div>
-    `);
+ 
 // make folder hierarchy into an accordion structure
 $('.folder').accordion({
     collapsible: true,
