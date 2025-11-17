@@ -107,7 +107,7 @@ cant_remove_dialog.html(`
 <div id="cant_remove_text">
     You can't remove <span id="cant_remove_username_1" class = "cant_remove_username"></span> because this object is inheriting permissions from 
     its parent. To remove <span id="cant_remove_username_2" class = "cant_remove_username"></span>, you must prevent this object from inheriting permissions.
-    Turn off the option for inheriting permissions, and then try removing <span id="cant_remove_username_3" class = "cant_remove_username"></span>  again.
+    <strong>Go to Advanced and turn off the option for inheriting permissions in the Permissions tab</strong>. Then try removing <span id="cant_remove_username_3" class = "cant_remove_username"></span>  again.
 </div>`)
 
 // Make a confirmation "are you sure you want to remove?" dialog
@@ -383,9 +383,9 @@ $('#adv_perm_inheritance').change(function(){
         // has just been turned off - pop up dialog with add/remove/cancel
         $(`<div id="add_remove_cancel" title="Security">
             Warning: Changing inheritance will affect who can access this item.<br/>
-            - Add: Stop inheriting permissions for this user(e.g., <strong>remove users</strong>)<br/>
-            - Remove: Stop inheriting and remove all permissions from users, you’ll need to re-add users manually.<br/>
-            - Cancel: Keep current permissions; make no changes.<br/>
+            <p style="color: green;"><strong>Add:</strong></p> Stop inheriting permissions for this user (i.e. <strong>remove the user</strong>)<br/>
+            <p style="color: red;"><strong>Remove:</strong></p> Stop inheriting and remove all permissions from all users, you’ll need to re-add users manually.<br/>
+            <p><strong>Cancel:</strong></p> Keep current permissions; make no changes.<br/>
         </div>`).dialog({ // TODO: don't create this dialog on the fly
             modal: true,
             width: 400,

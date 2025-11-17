@@ -1,6 +1,7 @@
 // ---- Define your dialogs  and panels here ----
-
-
+$(document).ready(function() {
+    $('.permbutton').append('  Permissions');
+});
 
 // ---- Display file structure ----
 
