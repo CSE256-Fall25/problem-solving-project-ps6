@@ -85,6 +85,11 @@ perm_add_user_select = define_new_user_select_field('perm_add_user', 'Add User',
         if( file_permission_users.find(`#${expected_user_elem_id}`).length === 0 ) { // if such a user element doesn't already exist
             new_user_elem = make_user_elem('permdialog_file_user', selected_user)
             file_permission_users.append(new_user_elem)
+
+            const outputAreaElem = document.getElementById('outputArea');
+            outputAreaElem.textContent = `${selected_user} has been added.`;
+            outputAreaElem.style.color = 'green'; 
+
         }
     }    
 })
@@ -138,6 +143,7 @@ let are_you_sure_dialog = define_new_dialog('are_you_sure_dialog', "Are you sure
 
                 const outputArea = document.getElementById('outputArea');
                 outputArea.textContent = `${username} has now been removed.`;
+                outputArea.style.color = 'red'; 
 
                 // Finally, close this dialog:
                 $( this ).dialog( "close" );
