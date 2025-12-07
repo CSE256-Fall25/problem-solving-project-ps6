@@ -121,7 +121,12 @@ let are_you_sure_dialog = define_new_dialog('are_you_sure_dialog', "Are you sure
             id: "are-you-sure-yes-button",
             click: function() {
                 // Which user and file were they trying to remove permissions for?
-                let username = file_permission_users.attr('selected_item')
+
+                const selected_user_elem = file_permission_users.find('.ui-selected');
+
+                let username = selected_user_elem.text();  // get the actual username text
+
+                //let username = file_permission_users.attr('selected_item')
                 let filepath = perm_dialog.attr('filepath')
 
                 // Remove all the permissions:
@@ -130,6 +135,9 @@ let are_you_sure_dialog = define_new_dialog('are_you_sure_dialog', "Are you sure
                 // Update the UI to show that it's been removed:
                 file_permission_users.find('.ui-selected').remove()
                 file_permission_users.unselect() // clear user selection
+
+                const outputArea = document.getElementById('outputArea');
+                outputArea.textContent = `${username} has now been removed.`;
 
                 // Finally, close this dialog:
                 $( this ).dialog( "close" );
@@ -150,6 +158,23 @@ are_you_sure_dialog.text('Do you want to remove permissions for this user?')
 
 // Make actual "remove" button:
 perm_remove_user_button  = $('<button id="perm_remove_user" class="ui-button ui-widget ui-corner-all">Remove User</button>')
+
+//make remove unclickable unless a user has been selected
+perm_remove_user_button.button({ disabled: true });
+
+file_permission_users.selectable({
+    selected: function(event, ui) {
+        perm_remove_user_button.button("option", "disabled", false);
+    },
+    unselected: function(event, ui) {
+        // If no items remain selected, disable button again
+        if (file_permission_users.find('.ui-selected').length === 0) {
+            perm_remove_user_button.button("option", "disabled", true);
+        }
+    }
+});
+
+
 perm_remove_user_button.click(function(){
     // Get the current user and filename we are working with:
     let selected_username = file_permission_users.attr('selected_item')
@@ -201,6 +226,8 @@ $(function () {
 });
 
 perm_dialog.append(file_permission_users)
+const outputArea = $('<div id="outputArea" style="margin: 8px 0; color: black; font-style: italic;"></div>');
+perm_dialog.append(outputArea);               
 perm_dialog.append(perm_add_user_select)
 perm_add_user_select.append(perm_remove_user_button) // Cheating a bit again - add the remove button the the 'add user select' div, just so it shows up on the same line.
 perm_dialog.append(grouped_permissions)
