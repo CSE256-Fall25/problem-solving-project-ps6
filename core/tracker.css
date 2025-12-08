@@ -92,3 +92,13 @@
     opacity: .6 !important;     
     
 }
+
+#perm_remove_user_info {
+    pointer-events: auto;
+    cursor: help;           
+    opacity: 1.0 !important;
+    color: black;;       
+
+}
+
+

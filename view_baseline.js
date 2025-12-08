@@ -236,6 +236,38 @@ const outputArea = $('<div id="outputArea" style="margin: 8px 0; color: black; f
 perm_dialog.append(outputArea);               
 perm_dialog.append(perm_add_user_select)
 perm_add_user_select.append(perm_remove_user_button) // Cheating a bit again - add the remove button the the 'add user select' div, just so it shows up on the same line.
+
+const perm_add_user_button = perm_add_user_select.find('#perm_add_user_button');
+
+perm_add_user_button.append($(`
+    <span id="perm_add_user_info" title="
+        <b>Add User</b><br>
+        Select a user from the dropdown to add them to this file's permissions.
+        If the user is already listed, they will not be added again.
+    " style="margin-left:6px; cursor: help;">ⓘ</span>
+`));
+
+
+// Add info icon inside the existing Remove User button
+perm_remove_user_button.append($(`
+    <span id="perm_remove_user_info" title="
+        <b>Remove User</b><br>
+        Select a user from the list above, then click this button to remove their permissions.
+        This action cannot be undone.
+    " style="margin-left:6px; cursor: help; opacity: 1;">ⓘ</span>
+`));
+
+
+$(function () {
+    $(document).tooltip({
+        items: "#perm_add_user_info, #perm_remove_user_info",
+        content: function () {
+            return $(this).attr('title');
+        },
+        track: false
+    });
+});
+
 perm_dialog.append(grouped_permissions)
 perm_dialog.append(advanced_expl_div)
 perm_dialog.append(advanced_inherit_note)
