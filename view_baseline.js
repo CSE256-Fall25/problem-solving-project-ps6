@@ -113,8 +113,8 @@ cant_remove_dialog = define_new_dialog('cant_remove_inherited_dialog', 'Security
 cant_remove_dialog.html(`
 <div id="cant_remove_text">
     You can't remove <span id="cant_remove_username_1" class = "cant_remove_username"></span> because this object is inheriting permissions from 
-    its parent. To remove <span id="cant_remove_username_2" class = "cant_remove_username"></span>, you must prevent this object from inheriting permissions.
-    <strong>Go to Advanced and turn off the option for inheriting permissions in the Permissions tab</strong>. Then try removing <span id="cant_remove_username_3" class = "cant_remove_username"></span>  again.
+    its parent. To remove<span id="cant_remove_username_2" class = "cant_remove_username"></span>, you must visit
+    <strong>Advanced settings and turn off the <span style="color: blue;">inheriting permissions</span> and click on <span style="color: teal;">Add</span>, then try removing <span id="cant_remove_username_3" class = "cant_remove_username"></span>  again </strong>.
 </div>`)
 
 // Make a confirmation "are you sure you want to remove?" dialog
@@ -474,7 +474,7 @@ $('#adv_perm_inheritance').change(function(){
         // has just been turned off - pop up dialog with add/remove/cancel
         $(`<div id="add_remove_cancel" title="Security">
             Warning: Changing inheritance will affect who can access this item.<br/>
-            <p style="color: green;"><strong>Add:</strong></p> Stop inheriting permissions for this user (i.e. <strong>remove the user</strong>)<br/>
+            <p style="color: teal;"><strong>Add:</strong></p> Stop inheriting permissions for this user (i.e. <strong>remove the user</strong>)<br/>
             <p style="color: red;"><strong>Remove:</strong></p> Stop inheriting and remove all permissions from all users, you’ll need to re-add users manually.<br/>
             <p><strong>Cancel:</strong></p> Keep current permissions; make no changes.<br/>
         </div>`).dialog({ // TODO: don't create this dialog on the fly

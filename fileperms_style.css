@@ -44,3 +44,7 @@
 #perm_add_user_button {
     background-color: rgba(99, 248, 109, 0.306);
 }
+
+#adv_perm_inheritance_label{
+    color: blue;
+}
