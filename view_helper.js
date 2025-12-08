@@ -559,6 +559,7 @@ let _childPermRecheck = false;
 childPermConfirmDialog = define_new_dialog('child_perm_warning_dialog', 'Confirm: Replace Child Permissions', {
   modal: true,
   width: 460,
+  dialogClass: "no-close",   // ← ADD HERE (only to this dialog)
   buttons: {
     Cancel: {
       text: 'Cancel',

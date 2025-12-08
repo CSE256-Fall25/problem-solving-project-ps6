@@ -120,6 +120,7 @@ cant_remove_dialog.html(`
 // Make a confirmation "are you sure you want to remove?" dialog
 // Dialog for confirming removal of permissions for user and file (user and file attributed need to be populated)
 let are_you_sure_dialog = define_new_dialog('are_you_sure_dialog', "Are you sure?", {
+    dialogClass: "no-close",   // ← ADD HERE (only to this dialog)
     buttons: {
         Yes: {
             text: "Yes",
@@ -481,6 +482,7 @@ $('#adv_perm_inheritance').change(function(){
         </div>`).dialog({ // TODO: don't create this dialog on the fly
             modal: true,
             width: 400,
+            dialogClass: "no-close",   // ← ADD HERE (only to this dialog)
             appendTo: "#html-loc",
             position: { my: "top", at: "top", of: $('#html-loc') },
             buttons: {
