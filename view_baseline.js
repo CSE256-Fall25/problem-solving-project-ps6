@@ -165,6 +165,7 @@ are_you_sure_dialog.text('Do you want to remove permissions for this user?')
 // Make actual "remove" button:
 perm_remove_user_button  = $('<button id="perm_remove_user" class="ui-button ui-widget ui-corner-all">Remove User</button>')
 
+/*
 //make remove unclickable unless a user has been selected
 perm_remove_user_button.button({ disabled: true });
 
@@ -179,7 +180,7 @@ file_permission_users.selectable({
         }
     }
 });
-
+*/
 
 perm_remove_user_button.click(function(){
     // Get the current user and filename we are working with:
